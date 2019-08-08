@@ -103,10 +103,23 @@ Music Pictures Public
 
 # Basics: Navigating Folders
 
-To change between directories, you can type `cd ${directory}` to change to that directory:
+We want to create a folder to store the files for this presentation in.
+
+We can create a new directory with the command `mkdir`: *m*a*k*e *dir*ectory.
 
 ```sh
-bash-5.0$ cd Documents
+bash-5.0$ mkdir presentation
+```
+---
+
+# Basics: Navigating Folders
+
+To change between directories, you can type `cd ${directory}` to change to that directory.
+
+We can change to the directory we just made with `cd presentation`.
+
+```sh
+bash-5.0$ cd presentation
 bash-5.0$ ls
 index.js node_modules patat.hs
 presentation.md
@@ -122,7 +135,7 @@ To find out which directory you're in, type `pwd` which stands for
 
 ```sh
 bash-5.0$ pwd
-/usr/you/Documents
+/usr/you/presentation
 ```
 
 ---
@@ -158,9 +171,9 @@ One way is to con*cat*enate the file to the screen, with `cat`.
 
 ```sh
 bash-5.0$ cat grocery_list.txt
-Apples
-Bananas
-Carrots
+Corn
+Squash
+Beets
 Dynamite
 ```
 
@@ -168,12 +181,79 @@ Dynamite
 
 # Basics: Working With Files
 
-Now we have a grocery list sitting in our _Documents_ folder. However, what if we want to organize our files better?
+Now we have a grocery list sitting in our _presentation_ folder. However, what if we want to organize our files better?
 
 . . .
 
-We can create a new directory with the command `mkdir`: *m*a*k*e *dir*ectory.
+We can create a subfolder with the `mkdir` command again, and *m*o*v*e the grocery list to that folder with the `mv` command.
 
 ```sh
-bash-5.0$ mkdir notes
+bash-5.0$ mkdir lists
+bash-5.0$ mv grocery_list.txt lists
+bash-5.0$ ls lists
+grocery_list.txt
 ```
+
+---
+
+# Basics: Working With Files
+
+What if you prefer that your grocery list is in alphabetical order? The `sort` command will, as it sounds, sort your file alphabetically.
+
+```sh
+bash-5.0$ sort lists/grocery_list.txt
+Beets
+Corn
+Dynamite
+Squash
+```
+
+. . .
+
+If you notice, your original list will remain unsorted.
+
+This is by design. It allows you to do more things with a sorted file than just to save it.
+
+---
+
+# Redirection and Pipes
+
+Say you want to save that sorted list. You'll want to redirect the output of `sort` to a new file.
+
+```sh
+bash-5.0$ cd lists
+bash-5.0$ sort grocery_list.txt > sorted.txt
+bash-5.0$ cat sorted.txt
+Beets
+Corn
+Dynamite
+Squash
+```
+
+---
+
+# Redirection and Pipes
+
+You can redirect the output of a command into another command.
+
+This is the way shell commands compose.
+
+Say you want to con*cat*enate a file to the screen, *sort* that output, then *n*umber the *l*ines (`nl`).
+
+```sh
+bash-5.0$ cat grocery_list.txt | sort | nl
+     1  Beets
+     2  Corn
+     3  Dynamite
+     4  Squash
+```
+
+---
+
+# Redirection and Pipes
+
+You can think of these pipes, represented by the pipe character `|` to be like real world pipes. Instead of water, they carry text.
+
+. . .
+
+Text flows from command to command and is modified by each in turn.
