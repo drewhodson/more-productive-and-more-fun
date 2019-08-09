@@ -257,3 +257,54 @@ You can think of these pipes, represented by the pipe character `|` to be like r
 . . .
 
 Text flows from command to command and is modified by each in turn.
+
+```
+a pipe:       |       |              
+              |  cat  |              
+              |       |              
+              |   |   |              
+              |   V   |              
+              |       |              
+              |  sed  |              
+              |       |              
+              |   |   |              
+              |   V   |              
+              |       |              
+              |  awk  |              
+              |       |              
+```
+
+---
+
+# Text Searching and Manipulation
+
+You can search for text in a given file using the `grep` command, which stands for global regular expression parse.
+
+```sh
+bash-5.0$ grep "S" grocery_list.txt
+Squash
+```
+
+. . .
+
+`grep` is case-sensitive by default. The `-i` flag makes it case insensitive.
+
+```sh
+bash-5.0$ grep -i "S" grocery_list.txt
+Squash
+Beets
+```
+
+---
+
+# Text Searching and Manipulation
+
+You can replace text in a file with the `sed` command: *s*tream *ed*itor. It edits the stream of text that flows through a pipe.
+
+```sh
+bash-5.0$ sed 's/t/r/' grocery_list.txt
+Corn
+Squash
+Beers
+Dynamire
+```
