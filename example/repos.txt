@@ -1,0 +1,6 @@
+https://github.com/drewhodson/mpamf
+https://github.com/drewhodson/jipe
+https://github.com/drewhodson/node-js-sample
+https://github.com/ghc/ghc
+https://github.com/koalaman/shellcheck
+https://github.com/junegunn/fzf

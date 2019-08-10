@@ -299,12 +299,144 @@ Beets
 
 # Text Searching and Manipulation
 
-You can replace text in a file with the `sed` command: *s*tream *ed*itor. It edits the stream of text that flows through a pipe.
+You can use the `tr` command to *tr*anslate characters, replacing one with another.
 
 ```sh
-bash-5.0$ sed 's/t/r/' grocery_list.txt
+bash-5.0$ tr 't' 'r' < grocery_list.txt
 Corn
 Squash
 Beers
 Dynamire
+```
+
+. . .
+
+Another way you could use `tr` is to translate uppercase characters into lowercase ones.
+
+```sh
+bash-5.0$ tr '[:upper:]' '[:lower:]' \
+  < grocery_list.txt
+corn
+squash
+beets
+dynamite
+```
+
+---
+
+# Text Searching and Manipulation
+
+A more powerful solution for replacing text is the `sed` command: *s*tream *ed*itor. It edits the stream of text that flows through a pipe using regular expressions.
+
+The following expression adds "Canned" to the front of every grocery item.
+
+```sh
+bash-5.0$ sed 's/^/Canned /' grocery_list.txt
+Canned Corn
+Canned Squash
+Canned Beets
+Canned Dynamite
+```
+
+---
+
+# So, How is this Useful?
+
+So why am I showing you all these little programs that deal with streams of text?
+
+. . .
+
+They serve as building blocks for automating your other tasks.
+
+. . .
+
+I like to think of Shell as the language with the best standard library and package system.
+
+Just learning some simple tools will build a foundation that can make things so much easier.
+
+---
+
+# Getting This Repository
+
+If at this point you're still following along, clone the repo that contains this presentation for more sample data to use.
+
+```sh
+bash-5.0$ git clone \
+"https://github.com/drewhodson/mpamf"
+bash-5.0$ cd mpamf
+```
+
+---
+
+# Example: Working With Heroku
+
+On my current engagement, I'm working a lot with Heroku applications and configuring them can be a chore.
+
+Working through the web interface, finding how two Heroku configurations differ is like playing eye spy.
+
+. . .
+
+Trying to copy a configuration from one application to another is painstaking.
+
+. . .
+
+Even merely viewing an application's configuration can take forever to load.
+
+. . .
+
+Is there a better way?
+
+---
+
+# Example: Working With Heroku
+
+The Heroku CLI program has a command that returns an application's configuration:
+
+```sh
+bash-5.0$ heroku config -a {app} -s
+DEBUG_LOGGING=false
+EMAIL_ADDRESS=test@test.com
+EMAIL_PASSWORD=p4ssw0rd
+```
+
+. . .
+
+If we just want the email-related configuration variables, we can find the ones that match with `grep`:
+
+```sh
+bash$ heroku config -a {app} -s | grep 'EMAIL'
+EMAIL_ADDRESS=test@test.com
+EMAIL_PASSWORD=p4ssw0rd
+```
+
+---
+
+# Example: Working With Heroku
+
+Say we need to run an application on our local machine instead of running on Heroku. We can copy the remote configuration to a .env file on our machine to read from.
+
+```sh
+bash$ heroku config -a {app} -s > .env
+```
+
+. . .
+
+There is an easy way to copy configurations between apps, too:
+
+```sh
+bash$ heroku config -a {app} -s |     \
+      xargs heroku config:set -a {app2}
+```
+
+---
+
+# Example: Working With Many Projects
+
+On my assignment, there are a lot of GitHub repos together in the same organization. It can become a headache trying to quickly jump between all of them.
+
+If you can obtain a list of all the GitHub repo URLs in an organization (likely, using the GitHub API) writing a script that allows you to search them and jump to the one you want is easy:
+
+```sh
+#!/bin/sh
+cat example/repos.txt | fzf | xargs open
 ```
