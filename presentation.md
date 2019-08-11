@@ -440,3 +440,58 @@ If you can obtain a list of all the GitHub repo URLs in an organization (likely,
 #!/bin/sh
 cat example/repos.txt | fzf | xargs open
 ```
+
+---
+
+# Integration With Any Programming Language
+
+One of the best things about Shell is its ability to interact with just about any programming language.
+
+. . .
+
+Write a NodeJS script that interacts with the GitHub API to auto-generate a list of your organization's repos, then use the fuzzy find script from earlier to search all repos from the command line.
+
+---
+
+# Miscellaneous Utilities
+
+To get a quick glance at the current month, use the `cal` command:
+
+```sh
+bash-5.0$ cal
+    August 2019       
+Su Mo Tu We Th Fr Sa  
+             1  2  3  
+ 4  5  6  7  8  9 10  
+11 12 13 14 15 16 17  
+18 19 20 21 22 23 24  
+25 26 27 28 29 30 31  
+```
+
+---
+
+# Miscellaneous Utilities
+
+To look at the weather for today, the following site exists:
+
+```sh
+bash-5.0$ curl wttr.in
+```
+
+. . .
+
+For a "cheat sheet" in the terminal, the site *cht.sh* exists:
+
+```sh
+bash-5.0$ curl cht.sh
+```
+
+---
+
+# How to get Started
+
+How can you get started writing your own shell scripts? I recommend the following resources:
+
+* The program `shellcheck`
+* The website *explainshell.com*
+* Simply searching "how do I do X in shell?"
