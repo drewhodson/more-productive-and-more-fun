@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+STDIN.read.split("\n").shuffle.each do |a|
+  puts a
+end

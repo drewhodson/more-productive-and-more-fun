@@ -1,0 +1,17 @@
+#!/usr/bin/env node
+const fs = require('fs');
+
+const shuffle = (a) => {
+    for (let i=a.length-1; i>0; i--) {
+        const j = ~~(Math.random()*(i+1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}
+
+const l = fs.readFileSync('/dev/stdin')
+  .toString();
+
+console.log(
+  shuffle(l.split('\n')).join('\n')
+);

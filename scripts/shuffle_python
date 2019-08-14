@@ -1,0 +1,8 @@
+#!/usr/bin/env python
+import random
+import sys
+
+lines = [l.rstrip() for l in sys.stdin]
+random.shuffle(lines)
+
+print "\n".join(lines)

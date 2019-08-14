@@ -1,0 +1,15 @@
+#!/usr/bin/env runhaskell
+import System.Random
+
+insert :: [a] -> a -> Int -> [a]
+insert z x n = take n z ++ [x] ++ drop n z
+
+shuffle :: Foldable t => t a -> IO [a]
+shuffle = foldr (\x ->
+  (>>= (\z ->
+    insert z x <$> randomRIO (0, length z))))
+  (pure [])
+
+main :: IO ()
+main = getContents >>= shuffle . lines
+  >>= putStr . unlines

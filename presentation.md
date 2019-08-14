@@ -31,372 +31,260 @@ Drew Hodson
 
 # About Me
 
-I've been working at DMI for nearly a year, currently on the Cirrus team at Eli Lilly.
-
-. . .
-
-# What Do I Like?
-
-I'm a big fan of programming in general. My current interests are Haskell, NodeJS, and Shell.
+- On the Cirrus team at Eli Lilly
+- DMIer for 10 months
+- Shell scripter for two years
 
 ---
 
 # Motivation
 
-I've always been a big fan of automating tasks. I believe that there's a perfect sweet spot between lazy and motivated that makes one a programmer.
+I've always been a big fan of automating tasks.
 
 . . .
 
-If you're lazy like me, you want to do something once and never again.
+Staying D.R.Y. 
+
+<!-- Since you can do almost anything you can do on your computer in a shell script or via the terminal, if you do perform a task in this manner, you can apply the DRY principle to anything you do in your workday. -->
 
 . . .
 
-It's like applying the D.R.Y. (Don't Repeat Yourself) principle to everything in life!
+I want to focus on what's cool.
 
-. . .
-
-Shell scripting feels like this huge revelation to me. Such powerful tools, already installed on your machine, that can save all kinds of time on your daily tasks.
+<!-- I find that during these talks, a lot of the time it's hard to remember what you learned when you leave. I want to show you some cool things that you can do and hopefully pique your interest in using the terminal, and show that it isn't just for people who want to look like hackers. -->
 
 ---
 
-# Introduction to Shell Scripting
+# What Can I Do With The Terminal?
 
-I'm going to start from nothing at all and work my way up from there.
-
-. . .
-
-If you have a Mac or Linux machine, or a Windows machine with the Windows Subsystem for Linux installed, open a terminal if you'd like to follow along.
+You may not be aware of what your terminal is capable of.
 
 . . .
 
-While the Windows terminal with Powershell is certainly capable of the things I'm going to show, all of my examples are going to be targeting the `bash` shell.
-
----
-
-# What am I Looking At?
-
-If you have a `bash` window open, you may see something like this:
-
-```
-bash-5.0$ 
-```
+You can run a presentation.
 
 . . .
 
-This is called the prompt, where we'll enter all of the commands outlined moving forward.
-
----
-
-# Basics: Navigating Folders
-
-In your terminal, type `ls` to list the items in the home directory:
-
+You can check your calendar:
 
 ```sh
-bash-5.0$ ls
-Applications Desktop Documents
-Downloads Library Mail Movies
-Music Pictures Public
-```
-
----
-
-# Basics: Navigating Folders
-
-We want to create a folder to store the files for this presentation in.
-
-We can create a new directory with the command `mkdir`: *m*a*k*e *dir*ectory.
-
-```sh
-bash-5.0$ mkdir presentation
-```
----
-
-# Basics: Navigating Folders
-
-To change between directories, you can type `cd ${directory}` to change to that directory.
-
-We can change to the directory we just made with `cd presentation`.
-
-```sh
-bash-5.0$ cd presentation
-bash-5.0$ ls
-index.js node_modules patat.hs
-presentation.md
+cal
 ```
 
 . . .
 
-To find out which directory you're in, type `pwd` which stands for 
-
-- *P*Current
-- *W*orking
-- *D*irectory
+You can get the weather in your terminal:
 
 ```sh
-bash-5.0$ pwd
-/usr/you/presentation
+curl wttr.in
 ```
 
 ---
 
-# Basics: Working With Files
+# CURL and the Unix Philosophy
 
-How can we create a file to operate on?
+The previous example, `curl wttr.in` uses a program called `curl`.
+
+Basically all it does is make web requests.
+
+<!-- Show some other uses of curl, like curl on http://www.google.com. Explain what curl is and does. -->
+
+`curl` is a great example of the Unix philosophy.
 
 . . .
 
-There are several text editors that are terminal-based. I use _Vim_, but _Nano_ is pretty easy to pick up. _Emacs_ is another notable terminal editor.
+*The Unix Philosophy*
+
+- A program should do one thing and do it well
+- Programs should work together
+- Output should always be in text format
+
+<!-- Explain how CURL's text output can be consumed by another program. The URL is passed as a "parameter" to the program CURL and it makes a web request to that URL. -->
+
+---
+
+# How to Understand Commands?
+
+`curl` is a short, pronounceable name that doesn't explain exactly what the command does.
+
+<!-- You'll find that this is the case for a lot of the programs I'll be showing off today. The name might not explain right away what that command does. -->
 
 . . .
 
-
-Open a new file in _Nano_ by typing `nano ${filename}`.
-
-```sh
-bash-5.0$ nano grocery_list.txt
-```
-
-This will open the file `grocery_list.txt` in the _Nano_ editor.
-
----
-
-# Basics: Working With Files
-
-Now that we've created our grocery list, how can we read it?
+How do you understand what a command does?
 
 . . .
 
-One way is to con*cat*enate the file to the screen, with `cat`.
+Read the manual!
 
 ```sh
-bash-5.0$ cat grocery_list.txt
-Corn
-Squash
-Beets
-Dynamite
+man curl
+```
+
+<!-- Man is just another program that comes standard with most Unix distributions. It contains manual pages that explain what all of the commands do. New programs that you install to use for scripting will usually come with their own man pages. -->
+
+---
+
+# Web Browsing in the Terminal
+
+You can use the terminal browser `w3m` to browse the internet in your terminal window.
+
+<!-- So, we've already shown off the program CURL and how it can dump the text content of a webpage to your terminal. What if you want to view a webpage directly in the terminal? -->
+
+```sh
+w3m google.com
 ```
 
 ---
 
-# Basics: Working With Files
+# Managing Projects in the Terminal
 
-Now we have a grocery list sitting in our _presentation_ folder. However, what if we want to organize our files better?
+Git, the popular source control tool, was designed for terminal use.
+
+<!-- Talk about how no GUI Git client manages to be as full-featured as Git itself is. -->
 
 . . .
 
-We can create a subfolder with the `mkdir` command again, and *m*o*v*e the grocery list to that folder with the `mv` command.
+If you want to follow along...
 
 ```sh
-bash-5.0$ mkdir lists
-bash-5.0$ mv grocery_list.txt lists
-bash-5.0$ ls lists
-grocery_list.txt
+git clone "https://github.com/drewhodson/mpamf"
+cd mpamf
 ```
 
 ---
 
-# Basics: Working With Files
+# Ease of Install: Package Managers
 
-What if you prefer that your grocery list is in alphabetical order? The `sort` command will, as it sounds, sort your file alphabetically.
+Installing programs in the terminal is extremely easy.
 
-```sh
-bash-5.0$ sort lists/grocery_list.txt
-Beets
-Corn
-Dynamite
-Squash
-```
+<!-- Talk about how involved it is to go out, google the name of a program, click on the installer, install the program vs package manager. -->
 
 . . .
 
-If you notice, your original list will remain unsorted.
-
-This is by design. It allows you to do more things with a sorted file than just to save it.
-
----
-
-# Redirection and Pipes
-
-Say you want to save that sorted list. You'll want to redirect the output of `sort` to a new file.
+To install `w3m` with homebrew:
 
 ```sh
-bash-5.0$ cd lists
-bash-5.0$ sort grocery_list.txt > sorted.txt
-bash-5.0$ cat sorted.txt
-Beets
-Corn
-Dynamite
-Squash
+brew install w3m
 ```
 
 ---
 
-# Redirection and Pipes
+# Ease of Install: Setup Scripts
 
-You can redirect the output of a command into another command.
+You can string together commands and place them in a script.
 
-This is the way shell commands compose.
-
-Say you want to con*cat*enate a file to the screen, *sort* that output, then *n*umber the *l*ines (`nl`).
-
-```sh
-bash-5.0$ cat grocery_list.txt | sort | nl
-     1  Beets
-     2  Corn
-     3  Dynamite
-     4  Squash
-```
-
----
-
-# Redirection and Pipes
-
-You can think of these pipes, represented by the pipe character `|` to be like real world pipes. Instead of water, they carry text.
+<!-- Everything we've seen so far is just a single command. You can string these together in a file and run them in sequence any time. -->
 
 . . .
 
-Text flows from command to command and is modified by each in turn.
-
-```
-a pipe:       |       |              
-              |  cat  |              
-              |       |              
-              |   |   |              
-              |   V   |              
-              |       |              
-              |  sed  |              
-              |       |              
-              |   |   |              
-              |   V   |              
-              |       |              
-              |  awk  |              
-              |       |              
-```
-
----
-
-# Text Searching and Manipulation
-
-You can search for text in a given file using the `grep` command, which stands for global regular expression parse.
+Say you want to keep a list of your favorite programs on hand so your next computer is ready to go:
 
 ```sh
-bash-5.0$ grep "S" grocery_list.txt
-Squash
+#!/bin/sh
+brew install w3m
+brew install fzf
+brew install moreutils
+brew install git-extras
 ```
+
+<!-- Talk about how stringing together commands and saving them in a file can really help you automate menial tasks. -->
 
 . . .
 
-`grep` is case-sensitive by default. The `-i` flag makes it case insensitive.
+There is an install script in this presentation's repo that will install all the utilities I mentioned in the talk.
 
-```sh
-bash-5.0$ grep -i "S" grocery_list.txt
-Squash
-Beets
-```
+<!-- I'll share the link again at the end for anyone who missed it that is interested. -->
 
 ---
 
-# Text Searching and Manipulation
+# Ease of Install: Setup Scripts
 
-You can use the `tr` command to *tr*anslate characters, replacing one with another.
+Say you have a Node project you want to set up the environment for.
 
 ```sh
-bash-5.0$ tr 't' 'r' < grocery_list.txt
-Corn
-Squash
-Beers
-Dynamire
+#!/bin/sh
+type nvm > /dev/null
+if [ $? -ne 0 ] ; then
+  echo "Please install NVM"
+  open "https://github.com/nvm-sh/nvm"
+  exit
+fi
+nvm use 10
+npm install
 ```
+
+<!-- Go through this script in detail. -->
+
+---
+
+# Creating Your Own Custom Commands
+
+You can create your own custom commands and invoke them with a single keyword.
 
 . . .
 
-Another way you could use `tr` is to translate uppercase characters into lowercase ones.
+Motivating example: repo search.
 
-```sh
-bash-5.0$ tr '[:upper:]' '[:lower:]' \
-  < grocery_list.txt
-corn
-squash
-beets
-dynamite
-```
-
----
-
-# Text Searching and Manipulation
-
-A more powerful solution for replacing text is the `sed` command: *s*tream *ed*itor. It edits the stream of text that flows through a pipe using regular expressions.
-
-The following expression adds "Canned" to the front of every grocery item.
-
-```sh
-bash-5.0$ sed 's/^/Canned /' grocery_list.txt
-Canned Corn
-Canned Squash
-Canned Beets
-Canned Dynamite
-```
-
----
-
-# So, How is this Useful?
-
-So why am I showing you all these little programs that deal with streams of text?
+<!-- Talk about the grueling process of opening GitHub and searching across the organization, show it off if able. Then launch scripts/open_repo.sh -->
 
 . . .
 
-They serve as building blocks for automating your other tasks.
+Only ~45 characters of code.
 
 . . .
 
-I like to think of Shell as the language with the best standard library and package system.
-
-Just learning some simple tools will build a foundation that can make things so much easier.
+Now you can name this command something like "repo" and use it anywhere.
 
 ---
 
-# Getting This Repository
+# Motivating Example: Mass File Operations
 
-If at this point you're still following along, clone the repo that contains this presentation for more sample data to use.
+Say we want to perform some operations on a group of files.
+
+<!-- Say, we need some files to operate on. At this point, run scripts/fetch_photos.sh and explain how it works. Explain the parameter passing. Highlight how in the GUI you'd just be refreshing the page and downloading an image over and over. In a programming language, you'd have to import libraries and so on. In shell, you're composing programs. -->
+
+. . .
+
+The wildcard character, "\*", allows you to select a group of files to perform operations on.
+
+<!-- Show how you can open all of the files at the same time. Show how you can then move them to a different directory. Then show how you can remove all of them. -->
+
+---
+
+# Motivating Example: Search in all Files
+
+What if you wanted to find a certain string across all files in a subdirectory?
 
 ```sh
-bash-5.0$ git clone \
-"https://github.com/drewhodson/mpamf"
-bash-5.0$ cd mpamf
+search () {
+  grep -rn \
+    --exclude-dir=node_modules \
+    --exclude-dir=.git \
+    "$1" .
+}
 ```
+
+<!-- Demo this function, then talk about how you can add this to your profile file. -->
 
 ---
 
 # Example: Working With Heroku
 
-On my current engagement, I'm working a lot with Heroku applications and configuring them can be a chore.
+Getting the Heroku CLI program is simple:
 
-Working through the web interface, finding how two Heroku configurations differ is like playing eye spy.
-
-. . .
-
-Trying to copy a configuration from one application to another is painstaking.
+```sh
+brew tap heroku/brew && brew install heroku
+```
 
 . . .
-
-Even merely viewing an application's configuration can take forever to load.
-
-. . .
-
-Is there a better way?
-
----
-
-# Example: Working With Heroku
 
 The Heroku CLI program has a command that returns an application's configuration:
 
+<!-- Show what it takes in order to fetch the configuration from the Heroku application, go to the website and show the process you must go through to see the configuration. -->
+
 ```sh
-bash-5.0$ heroku config -a {app} -s
-DEBUG_LOGGING=false
-EMAIL_ADDRESS=test@test.com
-EMAIL_PASSWORD=p4ssw0rd
+heroku config -a drew-hodson-test-1 -s
 ```
 
 . . .
@@ -404,9 +292,8 @@ EMAIL_PASSWORD=p4ssw0rd
 If we just want the email-related configuration variables, we can find the ones that match with `grep`:
 
 ```sh
-bash$ heroku config -a {app} -s | grep 'EMAIL'
-EMAIL_ADDRESS=test@test.com
-EMAIL_PASSWORD=p4ssw0rd
+heroku config -a drew-hodson-test-1 -s \
+  | grep 'EMAIL'
 ```
 
 ---
@@ -416,7 +303,7 @@ EMAIL_PASSWORD=p4ssw0rd
 Say we need to run an application on our local machine instead of running on Heroku. We can copy the remote configuration to a .env file on our machine to read from.
 
 ```sh
-bash$ heroku config -a {app} -s > .env
+heroku config -a drew-hodson-test-1 -s > .env
 ```
 
 . . .
@@ -424,21 +311,9 @@ bash$ heroku config -a {app} -s > .env
 There is an easy way to copy configurations between apps, too:
 
 ```sh
-bash$ heroku config -a {app} -s |     \
-      xargs heroku config:set -a {app2}
-```
-
----
-
-# Example: Working With Many Projects
-
-On my assignment, there are a lot of GitHub repos together in the same organization. It can become a headache trying to quickly jump between all of them.
-
-If you can obtain a list of all the GitHub repo URLs in an organization (likely, using the GitHub API) writing a script that allows you to search them and jump to the one you want is easy:
-
-```sh
-#!/bin/sh
-cat example/repos.txt | fzf | xargs open
+heroku config -a drew-hodson-test-1 -s \
+  xargs heroku config:set -a \
+  drew-hodson-test-2
 ```
 
 ---
@@ -449,49 +324,107 @@ One of the best things about Shell is its ability to interact with just about an
 
 . . .
 
-Write a NodeJS script that interacts with the GitHub API to auto-generate a list of your organization's repos, then use the fuzzy find script from earlier to search all repos from the command line.
+You can run a script in any language by changing the "Hash-bang" at the beginning of a script.
 
----
+You could write a utility in python that shuffles lines of input and run it as part of any other script:
 
-# Miscellaneous Utilities
+```python
+#!/usr/bin/env python
+import random
+import sys
 
-To get a quick glance at the current month, use the `cal` command:
+lines = [l.rstrip() for l in sys.stdin]
+random.shuffle(lines)
 
-```sh
-bash-5.0$ cal
-    August 2019       
-Su Mo Tu We Th Fr Sa  
-             1  2  3  
- 4  5  6  7  8  9 10  
-11 12 13 14 15 16 17  
-18 19 20 21 22 23 24  
-25 26 27 28 29 30 31  
+print "\n".join(lines)
 ```
 
 ---
 
-# Miscellaneous Utilities
+# Integration With Any Programming Language
 
-To look at the weather for today, the following site exists:
+...or, write it in Ruby
 
-```sh
-bash-5.0$ curl wttr.in
+```ruby
+#!/usr/bin/env ruby
+STDIN.read.split("\n").shuffle.each do |a|
+  puts a
+end
 ```
 
-. . .
+---
 
-For a "cheat sheet" in the terminal, the site *cht.sh* exists:
+# Integration With Any Programming Language
 
-```sh
-bash-5.0$ curl cht.sh
+...or in JavaScript
+
+```javascript
+#!/usr/bin/env node
+const fs = require('fs');
+
+const shuffle = (a) => {
+    for (let i=a.length-1; i>0; i--) {
+        const j = ~~(Math.random()*(i+1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}
+
+const l = fs.readFileSync('/dev/stdin')
+  .toString();
+
+console.log(
+  shuffle(l.split('\n')).join('\n')
+);
+```
+
+---
+
+# Integration With Any Programming Language
+
+...or in Haskell
+
+```haskell
+#!/usr/bin/env runhaskell
+import System.Random
+
+insert z x n = take n z ++ [x] ++ drop n z
+
+shuffle = foldr (\x ->
+  (>>= (\z ->
+    insert z x <$> randomRIO (0, length z))))
+  (pure [])
+
+main = getContents >>= shuffle . lines
+  >>= putStr . unlines
 ```
 
 ---
 
 # How to get Started
 
-How can you get started writing your own shell scripts? I recommend the following resources:
+How can you get started writing your own Shell scripts? I recommend the following resources:
 
 * The program `shellcheck`
 * The website *explainshell.com*
-* Simply searching "how do I do X in shell?"
+* `curl cht.sh`
+
+<!-- Show how to use the site cht.sh -->
+
+---
+
+# Thank you!
+
+Thank you for attending my talk.
+
+. . .
+
+Any questions?
+
+. . .
+
+You can get the code, all the scripts and examples, from this repo:
+
+```sh
+git clone "https://github.com/drewhodson/mpamf"
+```
