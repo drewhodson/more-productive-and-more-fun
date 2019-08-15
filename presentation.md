@@ -52,6 +52,7 @@ Staying D.R.Y.
 I want to focus on what's cool.
 
 <!-- I find that during these talks, a lot of the time it's hard to remember what you learned when you leave. I want to show you some cool things that you can do and hopefully pique your interest in using the terminal, and show that it isn't just for people who want to look like hackers. -->
+<!-- The idea behind this talk changed a few times. At first, I wanted to explain everything you could possibly do with Shell scripts, but the topic is far too big for that. -->
 
 ---
 
@@ -226,11 +227,13 @@ You can create your own custom commands and invoke them with a single keyword.
 
 Motivating example: repo search.
 
-<!-- Talk about the grueling process of opening GitHub and searching across the organization, show it off if able. Then launch scripts/open_repo.sh -->
+<!-- Talk about the process of opening GitHub and searching across the organization, show it off if able. Then launch scripts/open_repo.sh -->
 
 . . .
 
 Only ~45 characters of code.
+
+<!-- Show the code and explain how the flow goes from one program to another, and talk about how pipes work. Talk about the program fzf. -->
 
 . . .
 
@@ -242,7 +245,7 @@ Now you can name this command something like "repo" and use it anywhere.
 
 Say we want to perform some operations on a group of files.
 
-<!-- Say, we need some files to operate on. At this point, run scripts/fetch_photos.sh and explain how it works. Explain the parameter passing. Highlight how in the GUI you'd just be refreshing the page and downloading an image over and over. In a programming language, you'd have to import libraries and so on. In shell, you're composing programs. -->
+<!-- We need some files to operate on. At this point, run scripts/fetch_photos.sh and explain how it works. Explain the parameter passing. Highlight how in the GUI you'd just be refreshing the page and downloading an image over and over. In a programming language, you'd have to import libraries and so on. In shell, you're composing programs. -->
 
 . . .
 
@@ -315,6 +318,18 @@ heroku config -a drew-hodson-test-1 -s \
   xargs heroku config:set -a \
   drew-hodson-test-2
 ```
+
+---
+
+# Example: Testing APIs
+
+You can test API endpoints using a program like Postman.
+
+. . .
+
+You can also do it in Shell.
+
+<!-- Show your example API testing program. Talk about how you can customize this program to work however you like, and pass the output of the program to a different program, something Postman can't do. It's easy to save the output to a file, and there are utilities to process JSON data within the shell. -->
 
 ---
 
@@ -401,6 +416,21 @@ main = getContents >>= shuffle . lines
 
 ---
 
+# Helpful Tips For Working in the Shell
+
+You can use `!!` to reference the previous command.
+<!-- This is great if you forget to use super-user permissions for your previous command. -->
+
+. . .
+
+You can use `!$` to reference the last parameter of the last command.
+
+. . .
+
+You can press Ctrl+R to search backwards in your input history.
+
+---
+
 # How to get Started
 
 How can you get started writing your own Shell scripts? I recommend the following resources:
@@ -410,6 +440,14 @@ How can you get started writing your own Shell scripts? I recommend the followin
 * `curl cht.sh`
 
 <!-- Show how to use the site cht.sh -->
+
+---
+
+# Summary
+
+What's the take away from all this?
+
+<!-- I wanted to show some of what's possible using the terminal vs. working in the GUI. And while it would be quite difficult to replace everything that you do daily working only in the terminal, there's a lot of possibility for increased productivity working this way. I handle source control in my terminal, I edit files in my terminal, I test APIs in my terminal, I configure heroku applications in the terminal. There are even things that I do that would be impossible to replicate using GUIs alone. The cherry on top is that I'm doing all of these things without switching programs. Everything that I'm doing is just a few keystrokes away. So much of your attention gets lost when you switch windows and your brain tries to switch contexts. I can do all of these things in the same window and combine their effects together. I don't expect everyone to leave here and immediately start doing everything with shell scripts, but I hope that everyone learned something new and is able to use that to their advantage in their daily life. -->
 
 ---
 
