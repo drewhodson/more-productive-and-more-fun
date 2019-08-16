@@ -66,6 +66,14 @@ You can run a presentation.
 
 . . .
 
+You can search all dictionary words:
+
+```sh
+look presentation
+```
+
+. . .
+
 You can check your calendar:
 
 ```sh
@@ -80,11 +88,21 @@ You can get the weather in your terminal:
 curl wttr.in
 ```
 
+. . .
+
+You can view a map:
+
+```sh
+telnet mapscii.me
+```
+
+<!-- a/z to zoom, arrow keys to move around -->
+
 ---
 
 # CURL and the Unix Philosophy
 
-The previous example, `curl wttr.in` uses a program called `curl`.
+One of our previous examples, `curl wttr.in`, uses a program called `curl`.
 
 Basically all it does is make web requests.
 
