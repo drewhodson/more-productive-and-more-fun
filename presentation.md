@@ -51,8 +51,7 @@ Staying D.R.Y.
 
 I want to focus on what's cool.
 
-<!-- I find that during these talks, a lot of the time it's hard to remember what you learned when you leave. I want to show you some cool things that you can do and hopefully pique your interest in using the terminal, and show that it isn't just for people who want to look like hackers. -->
-<!-- The idea behind this talk changed a few times. At first, I wanted to explain everything you could possibly do with Shell scripts, but the topic is far too big for that. -->
+<!-- The idea behind this talk changed a few times. At first, I wanted to explain everything you could possibly do with Shell scripts, but the topic is far too big for that. I can't really give an entire programming language tutorial in the timespan of one talk. So instead, I'm going to go over some cool examples and some things that I use in my day to day work. Hopefully, it will pique your interest in using the terminal and get you to investigate some of the things that I'm discussing today. -->
 
 ---
 
@@ -63,14 +62,6 @@ You may not be aware of what your terminal is capable of.
 . . .
 
 You can run a presentation.
-
-. . .
-
-You can search all dictionary words:
-
-```sh
-look presentation
-```
 
 . . .
 
@@ -88,25 +79,15 @@ You can get the weather in your terminal:
 curl wttr.in
 ```
 
-. . .
-
-You can view a map:
-
-```sh
-telnet mapscii.me
-```
-
-<!-- a/z to zoom, arrow keys to move around -->
-
 ---
 
 # CURL and the Unix Philosophy
 
-One of our previous examples, `curl wttr.in`, uses a program called `curl`.
+The previous example, `curl wttr.in`, uses a program called `curl`.
 
-Basically all it does is make web requests.
+<!-- Show curl on http://www.google.com. Curl is a program with a singular purpose, to make HTTP requests and show you the content of the page. -->
 
-<!-- Show some other uses of curl, like curl on http://www.google.com. Explain what curl is and does. -->
+. . .
 
 `curl` is a great example of the Unix philosophy.
 
@@ -126,7 +107,7 @@ Basically all it does is make web requests.
 
 `curl` is a short, pronounceable name that doesn't explain exactly what the command does.
 
-<!-- You'll find that this is the case for a lot of the programs I'll be showing off today. The name might not explain right away what that command does. -->
+<!-- You'll find that this is the case for a lot of the programs I'll be showing off today. The name might not explain right away what that command does. This is kind of a general naming convention for these command line programs. -->
 
 . . .
 
@@ -144,6 +125,34 @@ man curl
 
 ---
 
+# Managing Projects in the Terminal
+
+Git, the popular source control tool, was designed for terminal use.
+
+<!-- Git has taken over the world of source control, and I'm sure you've used it yourself. You may use GUI git clients, like GitKraken or GitHub desktop. However, I've never found one that has the same flexibility as the terminal Git client. -->
+
+. . .
+
+Avoid repeating yourself with aliases.
+
+```sh
+alias gphm="git push heroku master"
+```
+
+<!-- Aliases are a feature of the shell that works anywhere. If you find yourself repeating the same command over and over again, you can make an alias of it to make it much faster to type. For instance, when deploying to Heroku I found myself typing "git push heroku master" over and over again. I was able to alias it to create my own command to push to heroku that's only four characters long. -->
+
+. . .
+
+If you want to follow along...
+
+```sh
+git clone "https://github.com/drewhodson/mpamf"
+```
+
+<!-- This repository contains all of the examples I'm discussing, plus some additional extra things that might help you learn more about shell scripting. Additionally, it contains the full text of this presentation so you don't have to take notes. -->
+
+---
+
 # Web Browsing in the Terminal
 
 You can use the terminal browser `w3m` to browse the internet in your terminal window.
@@ -154,30 +163,11 @@ You can use the terminal browser `w3m` to browse the internet in your terminal w
 w3m google.com
 ```
 
----
-
-# Managing Projects in the Terminal
-
-Git, the popular source control tool, was designed for terminal use.
-
-<!-- Talk about how no GUI Git client manages to be as full-featured as Git itself is. -->
-
 . . .
 
-If you want to follow along...
+How do we get the program `w3m`?
 
-```sh
-git clone "https://github.com/drewhodson/mpamf"
-cd mpamf
-```
-
----
-
-# Ease of Install: Package Managers
-
-Installing programs in the terminal is extremely easy.
-
-<!-- Talk about how involved it is to go out, google the name of a program, click on the installer, install the program vs package manager. -->
+<!-- We could open our web browser, go to a search engine, type in the name of the program, find the homepage, find the download link, click on it, wait for it to download, run the installer... But there's a much easier way. -->
 
 . . .
 
@@ -187,17 +177,19 @@ To install `w3m` with homebrew:
 brew install w3m
 ```
 
+<!-- Now, your package manager is going to change depending on your platform. Homebrew is the mac package manager, but on a linux system you might use apt or pacman. The same is true for a Windows machine running the windows subsystem for linux. -->
+
 ---
 
 # Ease of Install: Setup Scripts
 
 You can string together commands and place them in a script.
 
-<!-- Everything we've seen so far is just a single command. You can string these together in a file and run them in sequence any time. -->
+<!-- Everything we've seen so far is just a single command. The power of shell scripting comes from the ability to string these together in a file and run them in sequence at any time. -->
 
 . . .
 
-Say you want to keep a list of your favorite programs on hand so your next computer is ready to go:
+If you wanted to automate the installation of your favorite packages:
 
 ```sh
 #!/bin/sh
@@ -207,13 +199,13 @@ brew install moreutils
 brew install git-extras
 ```
 
-<!-- Talk about how stringing together commands and saving them in a file can really help you automate menial tasks. -->
+<!-- You can create a file that contains all of the install commands for programs you like to have on hand, and automate the install process for all your machines. You can then add that file to a git repository and you'd be able to get it from anywhere and run all your install commands on any computer. You could go even further by setting up your environment, and configuring all of your settings and customizing things how you like them. -->
 
 . . .
 
 There is an install script in this presentation's repo that will install all the utilities I mentioned in the talk.
 
-<!-- I'll share the link again at the end for anyone who missed it that is interested. -->
+<!-- For anyone who missed the repo link that would be interested in getting the script, I'll share the name of this repo again at the end of the talk. -->
 
 ---
 
@@ -229,21 +221,23 @@ if [ $? -ne 0 ] ; then
   open "https://github.com/nvm-sh/nvm"
   exit
 fi
-nvm use 10
+nvm install 10
 npm install
 ```
 
-<!-- Go through this script in detail. -->
+<!-- Go through this script in detail. "$?" means "the result of the last command" and if it is anything but zero that means there was an error. You could go much further than this, if you are using a Postgres database as a backend you could go through the install of Postgres, set the appropriate configuration variables, and start the server. You could commit this file with the repository and anyone working on developing this project will be able to get set up on their local machine with little effort. -->
 
 ---
 
 # Creating Your Own Custom Commands
 
-You can create your own custom commands and invoke them with a single keyword.
+You can create your own utilities and put them in your `$PATH` to make them available from anywhere.
+
+<!-- This is a variable in your shell that contains the directories to search when attempting to run a command. You can write your own custom scripts and instead of having to run them from the directory where they currently are sitting, you can run those commands from any directory on your machine. -->
 
 . . .
 
-Motivating example: repo search.
+Example: repository search.
 
 <!-- Talk about the process of opening GitHub and searching across the organization, show it off if able. Then launch scripts/open_repo.sh -->
 
@@ -255,7 +249,7 @@ Only ~45 characters of code.
 
 . . .
 
-Now you can name this command something like "repo" and use it anywhere.
+Now you can name this command something like "repo" and use it anytime.
 
 ---
 
@@ -321,11 +315,13 @@ heroku config -a drew-hodson-test-1 -s \
 
 # Example: Working With Heroku
 
-Say we need to run an application on our local machine instead of running on Heroku. We can copy the remote configuration to a .env file on our machine to read from.
+What if we need to copy a Heroku configuration to our local machine?
 
 ```sh
 heroku config -a drew-hodson-test-1 -s > .env
 ```
+
+<!-- Say you want to be able to run the application on your local machine for testing. The .env file format can be used to set the environment variables inside the application. The greater than symbol here is used for redirecting output of a command to a file, like piping but with the destination going to a file location. You can use two greater than symbols to append to that file. -->
 
 . . .
 
@@ -475,12 +471,14 @@ Thank you for attending my talk.
 
 . . .
 
-Any questions?
-
-. . .
-
 You can get the code, all the scripts and examples, from this repo:
 
 ```sh
 git clone "https://github.com/drewhodson/mpamf"
 ```
+
+<!-- The full text of the presentation is also in the repo, as well as some other fun things I didn't go over in the presentation. Hopefully if you're interested in learning more, you can dig into the examples and tweak them and learn from them. -->
+
+. . .
+
+Any questions?
