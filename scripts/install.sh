@@ -16,3 +16,9 @@ brew install shellcheck
 
 # More terminal utilities
 brew install moreutils
+
+# patat, the presentation program I used.
+# Requires haskell.
+# I commented this out because it's a big install.
+# brew install ghc cabal-install
+# cabal install patat
